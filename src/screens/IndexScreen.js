@@ -1,18 +1,52 @@
-import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Button } from 'react-native';
+import { Context } from '../context/BlogContext';
 
 import {Feather} from '@expo/vector-icons'
 
 const IndexScreen = () => {
+  const { state, addBlogPost } = useContext(Context)
+
   return (
     <SafeAreaView>
       <View>
-        <Text>Index <Feather name="trash"></Feather></Text>
+        <Button 
+          title="Add New Blog"
+          onPress={ addBlogPost  }
+        />
+        <FlatList
+          data={ state }
+          keyExtractor={(blogPost) => blogPost.title}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.row}>
+                <Text style={styles.title}>{ item.title }</Text>
+                <Feather name="trash-2" style={styles.icon} />
+              </View>
+            )
+          }}
+        />
       </View>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    borderTopWidth: 1,
+    borderColor: 'gray',
+  },
+  title: {
+    fontSize: 18,
+  },
+  icon: {
+    fontSize: 24,
+    color: 'red',
+  },
+})
 
 export default IndexScreen;

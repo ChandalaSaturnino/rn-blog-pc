@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import IndexScreen from './src/screens/IndexScreen'
-import { BlogProvider } from './src/context/BlogContext'
+import { Provider } from './src/context/BlogContext'
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ const App = () => {
         <Stack.Screen 
           name="Index" 
           component={IndexScreen}
-          options={{ title: 'Blogs' }}
+          options={{ title: 'Blogs', headerTitleAlign: 'center' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
 
 export default () => {
   return (
-    <BlogProvider>
+    <Provider>
       <App />
-    </BlogProvider>
+    </Provider>
   )
 }
